@@ -65,7 +65,13 @@ vector<string> split(const string &);
 
 
 vector<int> circularArrayRotation(vector<int> a, int k, vector<int> queries) {
-
+    k = k % (int)a.size();
+    rotate(a.begin(),a.begin()+a.size()-k,a.end());
+    vector<int> temp;
+    for(int i=0; i<(int)queries.size(); i++) {
+        temp.push_back(a[queries[i]]);
+    }
+    return temp;
 }
 
 int main()
