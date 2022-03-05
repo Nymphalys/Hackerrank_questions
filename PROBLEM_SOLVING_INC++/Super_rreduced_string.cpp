@@ -31,6 +31,12 @@ Sample Output 0
 
 abd*/
 
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+
 string superReducedString(string s) {
     string ch="";
     for(int i=0;i<s.length();i++)
@@ -51,4 +57,20 @@ string superReducedString(string s) {
     return "Empty String";
 
     return ch;
+}
+
+int main()
+{
+    ofstream fout(getenv("OUTPUT_PATH"));
+
+    string s;
+    getline(cin, s);
+
+    string result = superReducedString(s);
+
+    fout << result << "\n";
+
+    fout.close();
+
+    return 0;
 }
