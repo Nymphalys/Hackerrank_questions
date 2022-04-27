@@ -6,33 +6,44 @@ string ltrim(const string &);
 string rtrim(const string &);
 vector<string> split(const string &);
 
+int twice_median(vector<int> &expenditure,vector<int> &freq_count,int d){
+    int sum=0;
+    int n=freq_count.size();
+    
+    for(int i=0;i<n;++i){
+        sum+=freq_count[i];
+
+        if(2*sum>d) return (2*i);
+
+        else if(2*sum==d){
+            for(int j=i+1;i<n;++j){
+                if(freq_count[j]) return (i+j);
+            }
+        }
+    }
+return -1;
+    }
 
 int activityNotifications(vector<int> expenditure, int d) {
-int cnt=0;
-int k=int(d/2);
-vector<int>::iterator it;
-int med;
-for(it=expenditure.begin();it<expenditure.end()-d;it++)
-{
-    vector<int> a(it,it+d);
-    sort(a.begin(),a.end());
-    if (d % 2 != 0) 
-    {
-      if (*(it + d) >= 2 * (a[k]))
-      {
-        cnt++;
-      }
+    int count=0;
+    vector<int> freq_count(201,0);
+    int n=expenditure.size();
+
+    for(int i=0;i<d;++i){
+        freq_count[expenditure[i]]++;
     }
-     else
-     {
-      med = (((a[k] + a[k - 1]) / 2) + 1) * 2;
-      if (*(it + d) >=med) {
-        cnt++;
-      }
-     }
+    
+    for(int i=d;i<n;++i){
+        int median=twice_median(expenditure,freq_count,d);
+        
+        if(expenditure[i]>=median) count++;
+        freq_count[expenditure[i]]++;
+        freq_count[expenditure[i-d]]--;
+    }
+return count;
 }
-return cnt;
-}
+
+
 
 int main()
 {
